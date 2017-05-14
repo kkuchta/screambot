@@ -1,12 +1,16 @@
 #!/usr/bin/env ruby
 
-require 'dotenv'
 require 'chatterbot/dsl'
 require 'aws-sdk'
-require 'pry-byebug'
-require './scream'
 
-Dotenv.load
+# Dev-only reqs
+unless ENV['TARGET_ACCOUNT']
+  require 'pry-byebug'
+  require 'dotenv'
+  Dotenv.load
+end
+
+require './scream'
 
 # remove this to get less output when running your bot
 verbose
