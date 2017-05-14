@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:jonmast/twitter.git
+  remote: https://github.com/jonmast/twitter.git
   revision: 7f9d490c2035d23538eb0e65922b045ee70f173c
   ref: 7f9d490c2035d23538eb0e65922b045ee70f173c
   specs:
@@ -16,7 +16,7 @@ GIT
       simple_oauth (~> 0.3.0)
 
 GIT
-  remote: git@github.com:kkuchta/chatterbot.git
+  remote: https://github.com/kkuchta/chatterbot.git
   revision: 92d7beaea5decf8e116f010350d3e835c699fc54
   ref: 92d7beaea5decf8e116f010350d3e835c699fc54
   specs:
