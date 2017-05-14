@@ -1,6 +1,6 @@
 class Scream
   AUDIO_FILE_LOCATION = '/Users/kevin/tmp/audio.mp3'
-  IMAGE_FILE_LOCATION = '/Users/kevin/Desktop/images.jpg'
+  IMAGE_FILE_LOCATION = './scream.jpg'
   OUTPUT_FILE_LOCATION = '/Users/kevin/tmp/out.mp4'
 
   def self.polly
@@ -18,7 +18,7 @@ class Scream
   def make_video
     audio_file = make_audio
     # Be vaaawy cawful here... we're interpolating shell commands.
-    command = "ffmpeg -i #{audio_file} -f image2 -loop 1 -r 25 -i #{IMAGE_FILE_LOCATION} -shortest -vcodec libx264 -acodec aac -y #{OUTPUT_FILE_LOCATION}"
+    command = "ffmpeg -i #{audio_file} -f image2 -loop 1 -r 25 -i #{IMAGE_FILE_LOCATION} -shortest -vcodec libx264 -pix_fmt yuv420p -acodec aac -y -profile:v baseline #{OUTPUT_FILE_LOCATION}"
     result = `#{command}`
     OUTPUT_FILE_LOCATION
   end
