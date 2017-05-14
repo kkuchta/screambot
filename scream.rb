@@ -1,7 +1,7 @@
 class Scream
-  AUDIO_FILE_LOCATION = '/Users/kevin/tmp/audio.mp3'
+  AUDIO_FILE_LOCATION = '/tmp/scream_audio.mp3'
   IMAGE_FILE_LOCATION = './scream.jpg'
-  OUTPUT_FILE_LOCATION = '/Users/kevin/tmp/out.mp4'
+  OUTPUT_FILE_LOCATION = '/tmp/scream_video.mp4'
 
   def self.polly
     @polly ||= Aws::Polly::Client.new(
@@ -23,14 +23,30 @@ class Scream
     OUTPUT_FILE_LOCATION
   end
 
+  private
+
   def make_audio
     self.class.polly.synthesize_speech(
-      text: @text,
+      text: ssml,
+      text_type: 'ssml',
       output_format: 'mp3',
       response_target: AUDIO_FILE_LOCATION,
-      voice_id: 'Brian'
+      voice_id: voice_ids.sample
     )
     AUDIO_FILE_LOCATION
   end
 
+  def ssml
+    a_sub = ['ə','æ','ɑ'].sample
+    subbed_text = @text.gsub(/[aA]/, a_sub)
+
+    puts "Made #{subbed_text}"
+    "
+      <speak> <phoneme alphabet='ipa' ph='#{subbed_text}'></phoneme> </speak>
+    ".strip
+  end
+
+  def voice_ids
+    @voice_ids ||= self.class.polly.describe_voices.voices.map(&:id)
+  end
 end
