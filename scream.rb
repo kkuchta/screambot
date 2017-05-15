@@ -47,6 +47,10 @@ class Scream
   end
 
   def voice_ids
-    @voice_ids ||= self.class.polly.describe_voices.voices.map(&:id)
+    @voice_ids ||= self.class.polly
+      .describe_voices
+      .voices
+      .select{|v| v.language_code == 'en-US'}
+      .map(&:id)
   end
 end
